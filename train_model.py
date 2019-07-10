@@ -40,6 +40,8 @@ class TrainModel(CNN):
         self.verify_images_list = os.listdir(verify_img_path)
 
         # 获得图片宽高和字符长度基本信息
+        # label 验证码，形如 002a
+        # captcha_array 60 * 100 * 3 的多维数组
         label, captcha_array = self.gen_captcha_text_image(train_img_path, self.train_images_list[0])
 
         captcha_shape = captcha_array.shape
@@ -259,7 +261,8 @@ def main():
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-    tm = TrainModel(train_image_dir, verify_image_dir, char_set, model_save_dir, cycle_stop, acc_stop, cycle_save, image_suffix, verify=False)
+    tm = TrainModel(train_image_dir, verify_image_dir, char_set, model_save_dir, cycle_stop,
+                    acc_stop, cycle_save, image_suffix, verify=False)
     tm.train_cnn()  # 开始训练模型
     # tm.recognize_captcha()  # 识别图片示例
 

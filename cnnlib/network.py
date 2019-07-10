@@ -62,7 +62,8 @@ class CNN(object):
         wc1 = tf.get_variable(name='wc1', shape=[3, 3, 1, 32], dtype=tf.float32,
                               initializer=tf.contrib.layers.xavier_initializer())
         bc1 = tf.Variable(self.b_alpha * tf.random_normal([32]))
-        conv1 = tf.nn.relu(tf.nn.bias_add(tf.nn.conv2d(x, wc1, strides=[1, 1, 1, 1], padding='SAME'), bc1))
+        conv1 = tf.nn.relu(tf.nn.bias_add(tf.nn.conv2d(x, wc1, strides=[1, 1, 1, 1],
+                                                       padding='SAME'), bc1))
         conv1 = tf.nn.max_pool(conv1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
         conv1 = tf.nn.dropout(conv1, self.keep_prob)
 
